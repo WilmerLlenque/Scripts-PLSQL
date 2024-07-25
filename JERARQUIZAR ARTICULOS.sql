@@ -1,0 +1,24 @@
+-------- JERARQUIZAR ARTICULOS --------
+
+DECLARE
+    CANT NUMBER :=0;
+BEGIN
+    FOR CUR IN (SELECT DISTINCT * FROM NPAZ.JERARQUIZAR_ARTICULOS)
+    LOOP
+        UPDATE SYSADM.ARTICULOS AR SET AR.ID_CLASE=CUR.ID_CLASE,
+																			 AR.ID_SUBTI=CUR.ID_SUBTI,
+																			 AR.ID_VARIE=CUR.ID_VARIE,
+																			 AR.ID_PRESE=CUR.ID_PRESE,
+																			 AR.ID_CATEGORIA=CUR.ID_CATEGORIA,
+																			 AR.ID_FAMILIA=CUR.ID_FAMILIA,
+																			 AR.ID_MARCA=CUR.ID_MARCA,
+																			 AR.ID_TIPO=CUR.ID_TIPO
+        WHERE AR.COD_ITEM=CUR.COD_ITEM;
+				
+        CANT := CANT +1;
+				
+    END LOOP;
+    DBMS_OUTPUT.PUT_LINE(CANT);
+		--COMMIT;
+END
+;
